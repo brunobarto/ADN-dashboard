@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DNA Visualization Console</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="top-left">
+        <div class="window-dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="app-title">Mutation Splice · DNA Visualization Console</div>
+      </div>
+      <div class="top-right">
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          <span>Mutation Sequence Active</span>
+        </div>
+        <span>MODE: <span class="key">[ REPTILIAN DNA SPLICING ]</span></span>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Left: DNA visualization -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Mutation splice</div>
+            <div class="panel-subtitle">3D helix · live nucleotides</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="dna-wrapper">
+            <div class="dna-canvas">
+              <div class="dna-overlay-label">NUCLEOTIDE HELIX · ACTIVE</div>
+              <div class="dna-overlay-tag" id="dnaOverlayTag">A/T · C/G · 32 rungs</div>
+              <div class="dna-helix" id="dnaHelix">
+                <!-- JS will populate rungs -->
+              </div>
+            </div>
+
+            <div class="dna-controls">
+              <div class="control-block">
+                <div class="control-title">Sequence stream</div>
+                <div class="sequence-display" id="sequenceDisplay"></div>
+                <div class="sequence-meta">
+                  <span>Length: <span class="key" id="sequenceLength">0 bp</span></span>
+                  <span>GC%: <span class="key" id="gcContent">0.0</span></span>
+                </div>
+                <div class="btn-row">
+                  <button class="btn" id="btnRandom">Randomize</button>
+                  <button class="btn secondary" id="btnPause">Pause</button>
+                </div>
+              </div>
+
+              <div class="control-block">
+                <div class="control-title">Mutation controls</div>
+                <div class="slider-row">
+                  <span>Mutation rate</span>
+                  <input type="range" id="mutationRate" min="0" max="100" value="25" />
+                  <span class="key" id="mutationRateLabel">0.25</span>
+                </div>
+                <div class="slider-row">
+                  <span>Helix speed</span>
+                  <input type="range" id="helixSpeed" min="5" max="40" value="18" />
+                  <span class="key" id="helixSpeedLabel">18s</span>
+                </div>
+                <div class="btn-row">
+                  <button class="btn danger" id="btnInject">Inject mutation</button>
+                  <button class="btn secondary" id="btnReset">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle: Genome catalog -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Genome catalog</div>
+            <div class="panel-subtitle">tracked sequences · experimental</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="catalog">
+            <div class="catalog-filters">
+              <div class="pill active" data-filter="all">
+                <div class="pill-dot"></div> All
+              </div>
+              <div class="pill" data-filter="reptilian">Reptilian</div>
+              <div class="pill" data-filter="human">Human</div>
+              <div class="pill" data-filter="hybrid">Hybrid</div>
+              <div class="pill" data-filter="archived">Archived</div>
+            </div>
+
+            <div class="catalog-table">
+              <div class="catalog-header-row">
+                <div>ID</div>
+                <div>Origin</div>
+                <div>Mutation</div>
+                <div>Stability</div>
+              </div>
+              <div class="catalog-body" id="catalogBody">
+                <!-- JS will populate rows -->
+              </div>
+            </div>
+
+            <div class="catalog-footer">
+              <span>Active selection: <span class="key" id="activeSelection">GEN-RPT-032</span></span>
+              <span>Records: <span class="key" id="recordCount">0</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Video + thumbnails -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Observation feed</div>
+            <div class="panel-subtitle">lab stream · specimen overlays</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="video-panel">
+            <div class="video-main">
+              <div class="video-placeholder">
+                <div class="video-grid"></div>
+                <div class="video-lab"></div>
+                <div class="video-label">LAB FEED · CHAMBER 07</div>
+                <div class="video-meta">
+                  <div class="video-meta-dot"></div>
+                  <span>REC · 00:12:47</span>
+                </div>
+                <div class="video-play">
+                  <div class="video-play-icon"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="thumb-strip">
+              <div class="thumb-header">
+                <span>Snapshots</span>
+                <span>4 / 16</span>
+              </div>
+              <div class="thumb-row">
+                <div class="thumb" data-thumb="dna">
+                  <div class="thumb-overlay thumb-1"></div>
+                  <div class="thumb-tag">DNA</div>
+                </div>
+                <div class="thumb" data-thumb="cell">
+                  <div class="thumb-overlay thumb-2"></div>
+                  <div class="thumb-tag">CELL</div>
+                </div>
+                <div class="thumb" data-thumb="skin">
+                  <div class="thumb-overlay thumb-3"></div>
+                  <div class="thumb-tag">SCALES</div>
+                </div>
+                <div class="thumb" data-thumb="matrix">
+                  <div class="thumb-overlay thumb-4"></div>
+                  <div class="thumb-tag">MATRIX</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <div class="bottom-left">
+        <span>Console: <span class="key">/mutation_splice/session_04</span></span>
+        <span>FPS: <span class="key" id="fpsLabel">60</span></span>
+      </div>
+      <div class="bottom-right">
+        <div class="tiny-pill ok">Genome integrity: stable</div>
+        <div class="tiny-pill danger" id="mutationAlert">Mutation load: nominal</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
